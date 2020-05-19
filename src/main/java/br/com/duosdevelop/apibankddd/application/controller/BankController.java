@@ -2,7 +2,7 @@ package br.com.duosdevelop.apibankddd.application.controller;
 
 import br.com.duosdevelop.apibankddd.application.Util;
 import br.com.duosdevelop.apibankddd.application.dto.ClientDTO;
-import br.com.duosdevelop.apibankddd.domain.BankService;
+import br.com.duosdevelop.apibankddd.domain.ClientService;
 import br.com.duosdevelop.apibankddd.domain.Client;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +18,28 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/client")
-public class ClientController {
+@RequestMapping("/bank")
+public class BankController {
 
-    private BankService service;
+    private ClientService service;
 
     @Autowired
-    public ClientController(BankService service) {
+    public BankController(ClientService service) {
         this.service = service;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/client", method = RequestMethod.POST)
     public ResponseEntity<ClientDTO> insertClient(@RequestBody ClientDTO clientDTO,
                                                   @ApiParam(hidden = true) final HttpMethod method,
                                                   final WebRequest request){
         if (clientDTO.id != null) {
             throw new IllegalArgumentException("Id invalído!");
         }
-        final LocalDate birthLocalDate = LocalDate.parse(clientDTO.birthDate, Util.MEDIUM_DATE_FORMATTER);
-        final Client client = service.create(clientDTO.username, birthLocalDate);
+        LocalDate birthLocalDate = LocalDate.parse(clientDTO.birthDate, Util.MEDIUM_DATE_FORMATTER);
+        Client client = service.create(clientDTO.username, birthLocalDate);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ClientDTO(client));
-    }}
+    }
+
+
+
+}

@@ -1,7 +1,7 @@
 package br.com.duosdevelop.apibankddd.infra;
 
 import br.com.duosdevelop.apibankddd.domain.Client;
-import br.com.duosdevelop.apibankddd.domain.ClientRepository;
+import br.com.duosdevelop.apibankddd.domain.contracts.ClientRepository;
 import br.com.duosdevelop.apibankddd.infra.repositories.ClientJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

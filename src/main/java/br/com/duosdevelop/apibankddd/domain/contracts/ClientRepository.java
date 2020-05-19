@@ -1,4 +1,6 @@
-package br.com.duosdevelop.apibankddd.domain;
+package br.com.duosdevelop.apibankddd.domain.contracts;
+
+import br.com.duosdevelop.apibankddd.domain.Client;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -22,6 +22,10 @@ public class Account extends EntityBase<Account> {
         return balance;
     }
 
+    public AccountNum accountNum(){
+        return new AccountNum(getId());
+    }
+
     public void setBalance(Amount amount) {
         this.balance = amount;
     }
@@ -32,6 +36,6 @@ public class Account extends EntityBase<Account> {
 
     @Override
     public String toString() {
-        return String.format("Account{name='%s', balance='%s'}", name, balance);
+        return String.format("Account{accountNum=%d, name='%s', balance='%s'}", accountNum(), name, balance);
     }
 }

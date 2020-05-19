@@ -1,5 +1,6 @@
 package br.com.duosdevelop.apibankddd.domain;
 
+import br.com.duosdevelop.apibankddd.domain.contracts.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,12 +8,12 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 @Service
-public class BankService {
+public class ClientService {
 
     private ClientRepository clientRepository;
 
     @Autowired
-    public BankService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
