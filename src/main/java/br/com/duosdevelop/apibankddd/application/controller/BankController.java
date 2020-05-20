@@ -37,4 +37,10 @@ public class BankController {
         return ResponseEntity.ok(new ClientDTO(clientService.find(id)));
     }
 
+    @RequestMapping(path = "/client/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteClient(@PathVariable Long id){
+        clientService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

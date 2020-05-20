@@ -31,4 +31,9 @@ public class ClientService {
         return clientRepository.find(id).orElseThrow(() -> new ObjectNotFoundException("Object not found! Id:"+ id
         +", Type:"+ Client.class.getName()));
     }
+
+    public void delete(Long id) {
+        Client client = find(id);
+        clientRepository.delete(client);
+    }
 }
