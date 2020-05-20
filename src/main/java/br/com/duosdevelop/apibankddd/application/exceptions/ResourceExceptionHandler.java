@@ -25,4 +25,18 @@ public class ResourceExceptionHandler {
         );
     }
 
+    @ExceptionHandler(ParamException.class)
+    public ResponseEntity<StandardError> handleResourceParamException(ParamException paramException){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                StandardError.Builder
+                        .newBuilder()
+                        .timestamp(new Date().getTime())
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .title("Resource parameters incorrect!")
+                        .detail(paramException.getMessage())
+                        .developerMessage(paramException.getClass().getName())
+                        .build()
+        );
+    }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
@@ -35,5 +36,13 @@ public class ClientService {
     public void delete(Long id) {
         Client client = find(id);
         clientRepository.delete(client);
+    }
+
+    public List<Client> findAllClients() {
+        return clientRepository.findAll();
+    }
+
+    public List<Client> findAllBornFrom(LocalDate localDate) {
+        return clientRepository.findAllBornFrom(localDate);
     }
 }
