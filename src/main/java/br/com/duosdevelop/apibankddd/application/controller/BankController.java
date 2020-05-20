@@ -2,18 +2,12 @@ package br.com.duosdevelop.apibankddd.application.controller;
 
 import br.com.duosdevelop.apibankddd.application.Util;
 import br.com.duosdevelop.apibankddd.application.dto.ClientDTO;
-import br.com.duosdevelop.apibankddd.domain.ClientService;
 import br.com.duosdevelop.apibankddd.domain.Client;
-import io.swagger.annotations.ApiParam;
+import br.com.duosdevelop.apibankddd.domain.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -21,25 +15,26 @@ import java.time.LocalDate;
 @RequestMapping("/bank")
 public class BankController {
 
-    private ClientService service;
+    private ClientService clientService;
 
     @Autowired
-    public BankController(ClientService service) {
-        this.service = service;
+    public BankController(ClientService clientService) {
+        this.clientService = clientService;
     }
 
-    @RequestMapping(value = "/client", method = RequestMethod.POST)
-    public ResponseEntity<ClientDTO> insertClient(@RequestBody ClientDTO clientDTO,
-                                                  @ApiParam(hidden = true) final HttpMethod method,
-                                                  final WebRequest request){
+    @RequestMapping(path = "/client", method = RequestMethod.POST)
+    public ResponseEntity<ClientDTO> insertClient(@RequestBody ClientDTO clientDTO){
         if (clientDTO.id != null) {
             throw new IllegalArgumentException("Id invalído!");
         }
         LocalDate birthLocalDate = LocalDate.parse(clientDTO.birthDate, Util.MEDIUM_DATE_FORMATTER);
-        Client client = service.create(clientDTO.username, birthLocalDate);
+        Client client = clientService.create(clientDTO.username, birthLocalDate);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ClientDTO(client));
     }
 
-
+    @RequestMapping(path = "/client/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ClientDTO> findClient(@PathVariable Long id){
+        return ResponseEntity.ok(new ClientDTO(clientService.find(id)));
+    }
 
 }

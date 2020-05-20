@@ -1,6 +1,8 @@
-package br.com.duosdevelop.apibankddd.domain;
+package br.com.duosdevelop.apibankddd.domain.services;
 
+import br.com.duosdevelop.apibankddd.domain.Client;
 import br.com.duosdevelop.apibankddd.domain.contracts.ClientRepository;
+import br.com.duosdevelop.apibankddd.domain.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,10 @@ public class ClientService {
             throw new IllegalArgumentException("Usuário inválido!");
         }
         return clientRepository.save(new Client(username, birthDate));
+    }
+
+    public Client find(Long id) {
+        return clientRepository.find(id).orElseThrow(() -> new ObjectNotFoundException("Object not found! Id:"+ id
+        +", Type:"+ Client.class.getName()));
     }
 }

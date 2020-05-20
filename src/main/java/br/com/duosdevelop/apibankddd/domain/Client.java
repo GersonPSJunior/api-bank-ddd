@@ -16,6 +16,10 @@ public class Client extends EntityBase<Client> {
     private String username;
     private LocalDate birthDate;
 
+    @SuppressWarnings("unused")
+    private Client() {
+    }
+
     public Client(String username, LocalDate birthDate) {
         this.username = username;
         this.birthDate = birthDate;
